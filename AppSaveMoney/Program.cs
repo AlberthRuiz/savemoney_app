@@ -1,4 +1,6 @@
-using AppSaveMoney.Datos;
+using DataLayer.Context;
+using DataLayer.Repository;
+using DomainLayer.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dev_connection")));
+
+builder.Services.AddScoped<CategoriaService>();
+builder.Services.AddScoped<CategoriaRepository>();
 
 var app = builder.Build();
 

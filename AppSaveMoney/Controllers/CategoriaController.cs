@@ -1,23 +1,19 @@
-﻿using AppSaveMoney.Datos;
+﻿
 using AppSaveMoney.EntityLayer;
-using AppSaveMoney.Models;
+using DomainLayer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace AppSaveMoney.Controllers
-{
-    public class CategoriaController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-
-        public CategoriaController(ApplicationDbContext context) {
-            this._context = context;
+namespace AppSaveMoney.Controllers {
+    public class CategoriaController : Controller {        
+        private readonly CategoriaService categoriaService;
+        public CategoriaController(CategoriaService categoriaService) {
+            this.categoriaService = categoriaService;
         }
 
 
-        public IActionResult Index()
-        {
-            var list = _context.Categorias.ToList();
+        public IActionResult Index() {
+            var list = categoriaService.findAll();
             return View(list);
         }
 
@@ -27,48 +23,30 @@ namespace AppSaveMoney.Controllers
         }
         [HttpPost, ActionName("Create")]
         public IActionResult Create(Categoria categoria) {
-            _context.Add(categoria);
-            _context.SaveChanges();
+            categoriaService.create(categoria);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = _context.Categorias.Find(id);
+        public IActionResult Edit(int id) {
+            var categoria = categoriaService.findById(id);
             if (categoria == null)
-            {
                 return NotFound();
-            }
+
             return View(categoria);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, Categoria categoria)
-        {
-            if (id != categoria.Id)
-            {
+        public IActionResult Edit(int id, Categoria categoria) {
+            if (id != categoria.Id) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(categoria);
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoriaExists(categoria.Id))
-                    {
+            if (ModelState.IsValid) {
+                try {
+                    categoriaService.update(categoria);
+                } catch (DbUpdateConcurrencyException) {
+                    if (!CategoriaExists(categoria.Id)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -77,38 +55,23 @@ namespace AppSaveMoney.Controllers
             return View(categoria);
         }
 
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = _context.Categorias
-                .FirstOrDefault(m => m.Id == id);
+        public IActionResult Delete(int id) {
+            var categoria = categoriaService.findById(id);
             if (categoria == null)
-            {
                 return NotFound();
-            }
-
             return View(categoria);
         }
 
-        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var categoria = _context.Categorias.Find(id);           
-            _context.Categorias.Remove(categoria);
-            _context.SaveChanges();
+        public IActionResult DeleteConfirmed(int id) {
+            categoriaService.delete(id);
             return RedirectToAction(nameof(Index));
         }
 
 
-        bool CategoriaExists(int id)
-        {
-            return _context.Categorias.Any(e => e.Id == id);
+        bool CategoriaExists(int id) {
+            return categoriaService.findById(id) == null ? false : true;
         }
 
     }

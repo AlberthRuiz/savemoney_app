@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using AppSaveMoney.Models;
 using AppSaveMoney.EntityLayer;
 
-namespace AppSaveMoney.Datos;
+
+namespace DataLayer.Context;
 
 public class ApplicationDbContext : DbContext {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
