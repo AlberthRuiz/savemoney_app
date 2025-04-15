@@ -1,4 +1,5 @@
 ﻿using AppSaveMoney.Datos;
+using AppSaveMoney.EntityLayer;
 using AppSaveMoney.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

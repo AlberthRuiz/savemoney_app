@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AppSaveMoney.Models {
+namespace AppSaveMoney.EntityLayer {
     public class Presupuesto {
         [Key]
         public int Id { get; set; }

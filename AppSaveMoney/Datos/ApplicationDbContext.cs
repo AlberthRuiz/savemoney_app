@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using AppSaveMoney.Models;
+using AppSaveMoney.EntityLayer;
+
 namespace AppSaveMoney.Datos;
 
 public class ApplicationDbContext : DbContext {

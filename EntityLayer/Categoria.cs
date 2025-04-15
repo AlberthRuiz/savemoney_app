@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace AppSaveMoney.Models;
+namespace AppSaveMoney.EntityLayer;
 
 public class Categoria {
     [Key]
