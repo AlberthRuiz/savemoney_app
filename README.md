@@ -55,10 +55,10 @@ AppSaveMoney/
 
 1. Clonar el repositorio
    ```bash
-   git clone https://github.com/AlberthRuiz/AppSaveMoney.git
+   git clone https://github.com/AlberthRuiz/savemoney_app.git
    ```
 
-2. Abrir la solución `AppSaveMoney.sln` en Visual Studio
+2. Abrir la solución `savemoney_app.sln` en Visual Studio
 
 3. Configurar la cadena de conexión a la base de datos en `appsettings.json`
 
