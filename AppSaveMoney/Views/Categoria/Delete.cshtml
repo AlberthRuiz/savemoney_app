@@ -1,0 +1,45 @@
+﻿@model Categoria
+
+@{
+    ViewData["Title"] = "Eliminar Categoría";
+}
+
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0">Confirmar eliminación</h5>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> ¿Está seguro que desea eliminar la categoría <strong>@Model.Nombre</strong>?
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Nombre</dt>
+                    <dd class="col-sm-9">@Model.Nombre</dd>
+
+                    <dt class="col-sm-3">Descripción</dt>
+                    <dd class="col-sm-9">@Model.Descripcion</dd>
+
+                    <dt class="col-sm-3">Tipo</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge @(Model.EsGasto ? "bg-danger" : "bg-success")">
+                            @(Model.EsGasto ? "Gasto" : "Ingreso")
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <form asp-action="Delete" data-entidad="categoría">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>
